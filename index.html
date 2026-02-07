@@ -1,61 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>A Message</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>A Message</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Body & Fonts */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-image: url('Myphoto.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+}
+body::before {
+    content: "";
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.25);
+    z-index:0;
+}
+
+/* Container */
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    width: 90%;
+    margin: 60px auto;
+    padding: 40px;
+    border-radius: 25px;
+    background: rgba(179,136,255,0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Heading */
+h1 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    background: linear-gradient(45deg, #b388ff, #ffb6c1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 40px;
+    font-size: 42px;
+    letter-spacing: 1px;
+}
+
+/* Messages */
+.msg-box {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(145deg, rgba(255,255,255,0.85), rgba(255,255,255,0.9));
+    border-radius: 25px;
+    padding: 25px 20px;
+    margin-bottom: 50px;
+    box-shadow: inset 0 4px 8px rgba(0,0,0,0.05), 0 6px 20px rgba(0,0,0,0.1);
+    transform: scale(0);
+    transform-origin: center;
+    transition: transform 1.6s cubic-bezier(0.4,0,0.2,1);
+}
+.msg-box.show {
+    transform: scale(1);
+}
+.msg-box p {
+    margin:0;
+    font-size: 26px;
+    line-height: 2.4;
+    color: #222;
+    letter-spacing: 0.5px;
+    filter: blur(4px);
+    transition: filter 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.msg-box.show p {
+    filter: blur(0);
+}
+
+/* Popup */
+.popup {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index:10000;
+    background: rgba(0,0,0,0.2);
+}
+.popup-content {
+    background-image: url('popup-image.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 600px;
+    padding: 60px 45px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.4);
+    position: relative;
+    overflow: visible;
+}
+.popup-content h2 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    margin-bottom: 35px;
+    letter-spacing: 1px;
+}
+.popup-content button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    padding: 12px 30px;
+    font-size: 20px;
+    margin: 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.5s ease, left 0.5s ease, top 0.5s ease;
+}
+#yesBtn { background-color:#7b2cbf; color:#fff; }
+#noBtn { background-color:#ccc; }
+
+/* Slide animation */
+.slide-in {
+    transform: translateY(50px);
+    opacity:0;
+    animation: slideIn 1.8s forwards;
+}
+@keyframes slideIn {
+    to { transform: translateY(0); opacity:1; }
+}
+
+/* Blur container when popup active */
+body.popup-active .container {
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+/* Hearts */
+.heart {
+    position: fixed;
+    font-size: 40px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: burst 2.5s ease-out forwards;
+}
+@keyframes burst {
+    0% { transform: scale(0) rotate(0deg); opacity:1; }
+    50% { transform: translate(var(--x),var(--y)) scale(1.3) rotate(20deg); opacity:1; }
+    100% { transform: translate(var(--x),var(--y)) scale(1.6) rotate(-20deg); opacity:0; }
+}
+
+/* Falling petals */
+.petal {
+    position: fixed;
+    top: -60px;
+    font-size: 28px;
+    pointer-events: none;
+    opacity: 0.9;
+    animation-name: fallDiagonal;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    z-index: 2;
+}
+@keyframes fallDiagonal {
+    from { transform: translate(0,0) rotate(0deg); }
+    to { transform: translate(var(--dx),120vh) rotate(360deg); }
+}
+</style>
 </head>
 <body>
 
-    <!-- Main container -->
-    <div class="container">
-        <h1>I love you because I chose you</h1>
+<div class="container">
+    <h1>I love you because I chose you</h1>
 
-        <div class="message">
-            <div class="msg-box">
-                <p>Heyy, I'm sorry if I'm going to waste your time again but I promise that this is going to be the last time. Let me explain everything that you may not know about what actually happened to me and how fucked up my life had became and why I chose to hide everything.</p>
-            </div>
-            <div class="msg-box">
-                <p>About a week at the start of the school year I developed anxiety, for what you may ask? remember when I told you about my heart illness? I feared dying for the first time, because those times were the days I'm actually happy and wanted to live, because I have someone who loves me and I started to appreciate life, again I'm sorry if I've never told you anything, that anxiety got worse and I started overthinking everything, because I feel my body getting weaker and weaker, I don't know how to tell my parents because of our financial status, you know about the problem but sorry for hiding my anxiety.</p>
-            </div>
-            <div class="msg-box">
-                <p>About 2 months before we broke up, I lost my motivation towards everything, I feit like I have nobody on my side, I felt like I was alone and can't think straight, then the final straw happened, the biggest problem my family had faced yet. I let go of you because I don't want you to see me on a coffin, I thought I wouldn't survive it because of how fucked up my mental health had became. I'm sorry for hiding everything from you, I've never wanted to stress you out because I know you're easy to stress out, I just don't want to bother you because of how much of a failure I am.</p>
-            </div>
-            <div class="msg-box">
-                <p>Even tho I let go of you, I never stopped loving you, I'm still admiring you from afar just how I did before, I tried moving on because I saw how happy you are without me, because I can see that you're better without me but forcing myself to move on felt like ripping a piece of me, forcing myself to close the door, so instead of moving on I just accepted it as it is, instead of moving on I worked on myself, trying to be better, reflecting on my mistakes and lessons, I've never let my friends influence me because I have a mind of my own.</p>
-            </div>
-            <div class="msg-box">
-                <p>Just like a wise man said, distance is a Great teacher, during this three months of no connection to you I've grown a lot too, I'm proud to say that this is my best version yet, but not in academics because it's already 4th quarter, this version of myself may not be perfect and I'm too far from the man I want to be, but I'm also too far from the man you once met, I did everything to overcome those challenges, force myself to overcome my social anxiety, just like I said, you deserve someone better and I worked myself to be better.</p>
-            </div>
-            <div class="msg-box">
-                <p>‎My dear amy, I'm sorry for everything, sorry for ruining my own image, sorry for hurting your feelings, sorry for breaking my very own promise and sorry for everything wrong I've done, my own cowardness was the reason I failed to became a man, my own past, mistakes and fear was the one corrupted my mind, I hated myself more than you hate me, I'm sorry for letting you go, but not every break up meant the love was fake, the hatred and disappointment towards myself is what helps me to be better. You're my first love and my first girlfriend, I don't know any better or how to treat a woman right because I've never gotten into a relationship before, I've used the time we are separate to reflect and learn. </p>
-            </div>
-            <div class="msg-box">
-                <p>You told me before to be a man right? well so I did, I've learned from our past, reflected on myself and changed what I am, I may not be perfect but I'll do my best to be better at any point, I told you that I wanted to be with you and it was not a lie, I really wanted to pursue you not not became like your freinds who left you.</p>
-            </div>
-            <div class="msg-box">
-                <p>I have already failed you once, and I don't deserve another chance but brace myself to say this, can we try again? Not continuing our past relationship, but starting new, starting from the start, I wanted to show you how much I've changed, I want to treat you right and correct my mistakes before, I want to treat you better, I want to be the one who will hug you when everything feels heavy, I want to be the one on your side, I want to be your biggest supporter, I want to be your crying shoulder, I'm willing to court you again to build your trust until you're confident enough to trust me fully, if you're willing to give me a chance then let's not rush it this time.</p>
-            </div>
-            <div class="msg-box">
-                <p>And if not, I just wanted to say THANKYOUUU for being the biggest part of my life yet, thank you for everything because you're the reason why I've changed so much, thank you for being the girl who taught me how to trust god and to always believe him, thank you for letting me experience my first times, and letting me experience what it feels to be loved. But I'm sorry because the timing was wrong because of this fucked up destiny, but I'm still thankful I've met someone like you, someone who's patient enough to deal with me, someone who's willing to teach me instead of leaving me, I wish you nothing but blessings and hope that you'll be successful one day, always remember that god was always by your side and he will never leave you, always do your best and never give up. I'll trust god to guide me and hope that time and prayers will be enough for me to unlove you. </p>
-            </div>
-            <div class="msg-box">
-                <p>I'll be waiting for your response 🫶</p>
-            </div>
-        </div>
+    <div class="message">
+        <div class="msg-box"><p>Heyy, I'm sorry if I'm going to waste your time again...</p></div>
+        <div class="msg-box"><p>About a week at the start of the school year I developed anxiety...</p></div>
+        <div class="msg-box"><p>About 2 months before we broke up, I lost my motivation...</p></div>
+        <div class="msg-box"><p>Even tho I let go of you, I never stopped loving you...</p></div>
+        <div class="msg-box"><p>Just like a wise man said, distance is a Great teacher...</p></div>
+        <div class="msg-box"><p>‎My dear amy, I'm sorry for everything...</p></div>
+        <div class="msg-box"><p>You told me before to be a man right? well so I did...</p></div>
+        <div class="msg-box"><p>I have already failed you once, and I don't deserve another chance...</p></div>
+        <div class="msg-box"><p>And if not, I just wanted to say THANKYOUUU for being the biggest part of my life yet...</p></div>
+        <div class="msg-box"><p>I'll be waiting for your response 🫶</p></div>
     </div>
+</div>
 
-    <!-- Popup -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <h2>Will you read this message?
-            I've worked hard to make this :< </h2>
-            <button id="yesBtn" class="slide-in">Yes</button>
-            <button id="noBtn" class="slide-in">No</button>
-        </div>
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <h2>Will you read this message? I've worked hard to make this:</h2>
+        <button id="yesBtn" class="slide-in">Yes</button>
+        <button id="noBtn" class="slide-in">No</button>
     </div>
+</div>
 
-    <script src="main.js"></script>
+<script>
+// Run after DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+
+    const boxes = document.querySelectorAll('.msg-box');
+    const popup = document.getElementById('popup');
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+
+    // Show popup
+    popup.style.display = 'flex';
+    document.body.classList.add('popup-active');
+    let popupActive = true;
+
+    // IntersectionObserver for messages
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) entry.target.classList.add('show');
+        });
+    }, { threshold: 0.1 });
+    boxes.forEach(box => observer.observe(box));
+
+    // Yes button
+    yesBtn.addEventListener('click', () => {
+        popup.style.display = 'none';
+        document.body.classList.remove('popup-active');
+        popupActive = false;
+    });
+
+    // No button moves randomly
+    function moveNoButton() {
+        const padding = 20;
+        const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+        const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = Math.random() * maxX + 'px';
+        noBtn.style.top = Math.random() * maxY + 'px';
+    }
+    noBtn.addEventListener('mouseenter', moveNoButton);
+    noBtn.addEventListener('mousemove', moveNoButton);
+    noBtn.addEventListener('touchstart', moveNoButton);
+
+    // Heart click
+    document.addEventListener("click", e => createHearts(e));
+    document.addEventListener("touchstart", e => createHearts(e));
+    function createHearts(e){
+        let x = e.touches ? e.touches[0].clientX : e.clientX;
+        let y = e.touches ? e.touches[0].clientY : e.clientY;
+        const emojis = ["💜","🌷","🤍"];
+        for(let i=0;i<10;i++){
+            let heart=document.createElement("div");
+            heart.className="heart";
+            heart.textContent=emojis[Math.floor(Math.random()*emojis.length)];
+            heart.style.left = x + "px";
+            heart.style.top = y + "px";
+            heart.style.setProperty("--x", (Math.random()-0.5)*400+"px");
+            heart.style.setProperty("--y", (Math.random()-0.5)*400+"px");
+            document.body.appendChild(heart);
+            setTimeout(()=>heart.remove(),2500);
+        }
+    }
+
+    // Petals
+    const petals = ["🌸", "🌷", "💮"];
+    function createPetal() {
+        const petal = document.createElement("div");
+        petal.className = "petal";
+        petal.textContent = petals[Math.floor(Math.random()*petals.length)];
+        const size = Math.random() * 30 + 28;
+        const blur = Math.random() < 0.4 ? 4 : 0;
+        const duration = Math.random() * 10 + 12;
+        petal.style.fontSize = size + "px";
+        petal.style.filter = "blur(" + blur + "px)";
+        petal.style.animationDuration = duration + "s";
+        petal.style.left = Math.random() * 100 + "vw";
+        const driftX = Math.random() * 400 - 200 + "px";
+        petal.style.setProperty("--dx", driftX);
+        document.body.appendChild(petal);
+        setTimeout(()=>petal.remove(), duration*1000);
+    }
+    setInterval(createPetal, 450);
+
+});
+</script>
+
 </body>
 </html>
