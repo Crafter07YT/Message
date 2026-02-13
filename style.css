@@ -1,3 +1,106 @@
+/* ===== ADD THESE FIXES TO THE TOP OF YOUR style.css ===== */
+
+/* Reset and fix zoom issues */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: #0a0a0a;
+  scroll-behavior: smooth;
+  padding-bottom: 100px;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Fix video background to prevent zoom/overflow */
+/* ===== ADD THESE FIXES TO THE TOP OF YOUR style.css ===== */
+
+/* Reset and fix zoom issues */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+  background: #0a0a0a;
+  scroll-behavior: smooth;
+  padding-bottom: 100px;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Fix video background to prevent zoom/overflow */
+#Bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Ensure navbar stays fixed properly */
+#navbar {
+  position: fixed !important;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%) !important;
+  pointer-events: auto;
+}
+
+/* Prevent ripples from causing layout shifts */
+.water-ripple,
+.water-particle {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+
+/* Ensure navbar stays fixed properly */
+#navbar {
+  position: fixed !important;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%) !important;
+  pointer-events: auto;
+}
+
+/* Prevent ripples from causing layout shifts */
+.water-ripple,
+.water-particle {
+  position: absolute;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
 /* ===== GENERAL BODY ===== */
 body {
   margin:0;
@@ -66,35 +169,110 @@ body {
   100% { opacity:1; transform:translateY(0) scale(1);}
 }
 
-/* Social buttons - metallic texture */
+/* ===== EXPANDING SOCIAL BUTTONS - REPLACE YOUR .social-icons AND .social-btn STYLES ===== */
+
 .social-icons {
-  display:flex;
-  gap:12px;
-  align-items:center;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .social-btn {
-  width:45px;
-  height:45px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:12px;
-  border:2px solid #ccc;
+  position: relative;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 12px;
+  border: 2px solid #ccc;
   background: linear-gradient(145deg, #d0d0d0, #7a7a7a);
-  background-blend-mode:overlay;
-  color:#f5f5f5;
-  font-size:20px;
-  text-decoration:none;
-  transition: all 0.3s ease;
+  color: #f5f5f5;
+  font-size: 20px;
+  text-decoration: none;
+  overflow: hidden;
   box-shadow: 0 2px 8px rgba(255,255,255,0.4), 0 2px 8px rgba(0,0,0,0.3);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 0;
 }
 
-.social-btn:hover {
-  transform:scale(1.2);
-  box-shadow: 0 4px 12px rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.5);
-  color:#fff;
+/* Icon styling */
+.social-btn i {
+  min-width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  z-index: 2;
 }
+
+/* Label styling - hidden by default */
+.social-label {
+  position: absolute;
+  left: 45px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+  padding-right: 15px;
+  z-index: 1;
+}
+
+/* Hover/Touch effect - expand and show label */
+.social-btn:hover,
+.social-btn:active {
+  width: auto;
+  min-width: 130px;
+  padding-right: 15px;
+  box-shadow: 0 4px 12px rgba(255,255,255,0.6), 0 4px 12px rgba(0,0,0,0.5);
+  transform: scale(1.05);
+}
+
+.social-btn:hover .social-label,
+.social-btn:active .social-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.social-btn:hover i,
+.social-btn:active i {
+  color: #fff;
+}
+
+/* Mobile - expand on touch */
+@media (max-width: 768px) {
+  .social-btn:active {
+    width: auto;
+    min-width: 130px;
+  }
+}
+
+/* Specific colors for each platform (optional) */
+.social-btn[data-label="Facebook"]:hover {
+  background: linear-gradient(145deg, #1877f2, #0d5dbf);
+  border-color: #1877f2;
+}
+
+.social-btn[data-label="Instagram"]:hover {
+  background: linear-gradient(145deg, #e4405f, #833ab4);
+  border-color: #e4405f;
+}
+
+.social-btn[data-label="TikTok"]:hover {
+  background: linear-gradient(145deg, #000000, #333333);
+  border-color: #00f2ea;
+}
+
+.social-btn[data-label="Email"]:hover {
+  background: linear-gradient(145deg, #ea4335, #c5221f);
+  border-color: #ea4335;
+}
+
 
 /* ===== GAME BUTTONS ===== */
 .game-buttons{
@@ -246,55 +424,212 @@ body {
 }
 
 /* ===== NAVBAR ===== */
+/* ===== NAVBAR - APPLE LIQUID GLASS STYLE ===== */
+/* Replace your existing #navbar styles in style.css with this */
+
 #navbar {
-  position:fixed;
-  bottom:10px;
-  left:50%;
-  transform:translateX(-50%);
-  width:90%;
-  display:flex;
-  justify-content:space-around;
-  padding:10px 0;
-  z-index:1000;
-  background: rgba(10,10,10,0.85);
-  border-radius:20px;
-  border:2px solid rgba(255,255,255,0.6);
-  box-shadow:0 0 20px rgba(255,255,255,0.4);
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 12px;
+  z-index: 1000;
+  
+  /* Apple Liquid Glass Effect */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.1);
+  
+  /* Subtle gradient overlay */
+  background-image: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
 }
 
 #navbar button {
-  flex:1;
-  margin:0 5px;
-  height:50px;
-  border-radius:15px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.15));
-  border:2px solid rgba(255,255,255,0.7);
-  color:white;
-  font-size:24px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 0 8px rgba(255,255,255,0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
+  flex: 1;
+  margin: 0 4px;
+  height: 52px;
+  max-width: 70px;
+  border-radius: 16px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effect - liquid glass button */
+#navbar button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#navbar button:hover::before {
+  opacity: 1;
 }
 
 #navbar button:hover {
-  transform:scale(1.1);
-  box-shadow:0 0 15px rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 1);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 4px 12px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
-/* ===== RIPPLE EFFECT ===== */
-.ripple {
-  border-radius:50%;
-  pointer-events:none;
-  position:absolute;
+/* Active/pressed state */
+#navbar button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 
+    0 2px 8px rgba(255, 255, 255, 0.1),
+    inset 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-@keyframes waterRipple {
-  0% { transform:scale(0); opacity:0.6; }
-  70% { transform:scale(1.5); opacity:0.3; }
-  100% { transform:scale(2); opacity:0; }
+/* Ripple effect on click */
+#navbar button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
 }
+
+#navbar button:active::after {
+  width: 100px;
+  height: 100px;
+  opacity: 0.3;
+  transition: 0s;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  #navbar {
+    width: 95%;
+    max-width: 380px;
+    padding: 6px 8px;
+  }
+  
+  #navbar button {
+    height: 48px;
+    max-width: 65px;
+    margin: 0 2px;
+  }
+}
+
+/* ===== ENHANCED WATER RIPPLE EFFECT CSS =====
+   Replace your existing ripple styles in style.css with this */
+
+/* Main water ripple */
+.water-ripple {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  
+  /* Subtle ripple appearance */
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    transparent 70%
+  );
+  
+  /* Animation */
+  animation: waterRippleExpand 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes waterRippleExpand {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 1;
+    border-width: 2px;
+  }
+  50% {
+    opacity: 0.4;
+    border-width: 1.5px;
+  }
+  100% {
+    width: calc(200px * var(--size-multiplier, 1));
+    height: calc(200px * var(--size-multiplier, 1));
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+
+/* Small splash particles - more subtle */
+.water-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+  animation: particleSplash 0.7s ease-out forwards;
+}
+
+@keyframes particleSplash {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(
+      calc(var(--end-x) - 50%), 
+      calc(var(--end-y) - 50%)
+    ) scale(0.7);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(
+      calc(var(--end-x) - 50%), 
+      calc(var(--end-y) - 50%)
+    ) scale(0.2);
+    opacity: 0;
+  }
+}
+
+
 
 /* ===== DIFFICULTY SELECT ===== */
 .difficulty-container {
@@ -326,4 +661,290 @@ body {
   -webkit-backdrop-filter: none !important;
   border: 1px solid rgba(255,255,255,0.2);
   box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+
+/* ===== COMPLETE FUN FACTS SECTION CSS - ADD ALL OF THIS TO YOUR style.css ===== */
+
+/* Move h2 outside of flex container */
+#facts h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* Split Fun Facts Container */
+.facts-container {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Left side: Text */
+.facts-text {
+  flex: 1;
+  min-width: 250px;
+}
+
+.facts-text ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.facts-text li {
+  padding: 10px 0;
+  padding-left: 35px;
+  position: relative;
+  font-size: 16px;
+}
+
+.facts-text li::before {
+  content: "✨";
+  position: absolute;
+  left: 0;
+  font-size: 20px;
+}
+
+/* Right side: Stacked Photos */
+.facts-photos {
+  flex: 0 0 280px;
+  position: relative;
+  height: 320px;
+  overflow: visible;
+}
+
+/* Stacked Photo Effect */
+.stacked-photo {
+  position: absolute;
+  width: 180px;
+  height: 240px;
+  max-width: 180px;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  top: 50%;
+  left: 50%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+/* Stack positioning with rotation */
+.photo-3 {
+  transform: translate(-50%, -50%) rotate(-10deg) translateX(-30px);
+  z-index: 1;
+}
+
+.photo-4 {
+  transform: translate(-50%, -50%) rotate(3deg);
+  z-index: 2;
+}
+
+.photo-5 {
+  transform: translate(-50%, -50%) rotate(-5deg) translateX(25px);
+  z-index: 3;
+}
+
+/* Hover effect: bring photo to front */
+.stacked-photo:not(.animating):hover {
+  transform: translate(-50%, -50%) rotate(0deg) scale(1.15);
+  z-index: 10 !important;
+  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.5);
+  filter: brightness(1.2);
+  max-width: 207px !important;
+  max-height: 276px !important;
+}
+
+/* Photo popup animation styles - High Quality */
+.photo-popup {
+  position: fixed;
+  z-index: 10000;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
+  
+  /* High quality rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: auto;
+}
+
+/* Dark overlay for better focus */
+.photo-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.photo-overlay.active {
+  opacity: 1;
+}
+
+/* Disable all clicks on photo container during animation */
+.facts-photos.animating {
+  pointer-events: none;
+}
+
+.facts-photos.animating .stacked-photo {
+  pointer-events: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .facts-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .facts-photos {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 280px;
+    margin-top: 20px;
+  }
+
+  .stacked-photo {
+    width: 140px;
+    height: 190px;
+    max-width: 140px;
+    max-height: 190px;
+  }
+
+  .photo-3 {
+    transform: translate(-50%, -50%) rotate(-10deg) translateX(-20px);
+  }
+
+  .photo-5 {
+    transform: translate(-50%, -50%) rotate(-5deg) translateX(20px);
+  }
+}
+/* ===== TYPING ANIMATION CSS - ADD TO YOUR style.css ===== */
+
+.typing-text {
+  display: inline-block;
+  min-width: 10px;
+  color: white;
+}
+
+.typing-cursor {
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.9);
+  animation: blink 0.7s infinite;
+  font-weight: 300;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Optional: Add smooth color transition when typing */
+.intro-text h1 {
+  font-size: 32px;
+  margin: 10px 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+  .intro-text h1 {
+    font-size: 24px;
+  }
+}
+/* ===== REMOVE BLUE TAP HIGHLIGHT - ADD TO YOUR style.css ===== */
+
+/* Remove blue highlight on tap/click for ALL elements */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection for specific elements where you want it */
+p, li, h1, h2, h3, h4, h5, h6, span {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Remove outline on focus for buttons and links */
+button:focus,
+a:focus,
+input:focus,
+select:focus {
+  outline: none;
+}
+
+/* Remove blue highlight specifically for interactive elements */
+button,
+a,
+img,
+.stacked-photo,
+.social-btn,
+.game-buttons button,
+.ttt-btn,
+.sudoku-cell,
+#navbar button {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  outline: none;
+}
+button:active,
+a:active {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+
+footer {
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+footer p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  footer {
+    padding: 15px 10px;
+  }
+  
+  footer p {
+    font-size: 12px;
+  }
 }
