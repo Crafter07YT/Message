@@ -16,31 +16,40 @@
 <div id="emojiContainer"></div>
 
 <header id="header" class="glass-box profile-header">
-  
+
   <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
 
-  <div class="intro-text">
-    <h1>Hello, I'm Ger Merwin E Ytac</h1>
-    <p>Welcome! If you're reading this then it means that you're either a trusted friend or my teacher.</p>
-  </div>
+<div class="intro-text">
+  <h1>
+    Hello, I'm <span class="typing-text"></span><span class="typing-cursor">|</span>
+  </h1>
+  <p>Welcome! If you're reading this then it means that you're either a trusted friend or my teacher.</p>
+</div>
 
-  <div class="social-icons">
-    <a href="https://www.facebook.com/share/1ASBxqBsdu/" target="_blank" class="social-btn">
-      <i class="fab fa-facebook-f"></i>
-    </a>
+ <!-- REPLACE YOUR SOCIAL ICONS DIV WITH THIS: -->
 
-    <a href="https://www.instagram.com/im_r3g?igsh=eWttamtkbzYyeXlx" target="_blank" class="social-btn">
-      <i class="fab fa-instagram"></i>
-    </a>
+<div class="social-icons">
+  <a href="https://www.facebook.com/share/1ASBxqBsdu/" target="_blank" rel="noopener noreferrer" class="social-btn" data-label="Facebook">
+    <i class="fab fa-facebook-f"></i>
+    <span class="social-label">Facebook</span>
+  </a>
 
-    <a href="https://www.tiktok.com/@r3g_is_here?_r=1&_t=ZS-93smXPazU4i" target="_blank" class="social-btn">
-      <i class="fab fa-tiktok"></i>
-    </a>
+  <a href="https://www.instagram.com/im_r3g?igsh=eWttamtkbzYyeXlx" target="_blank" rel="noopener noreferrer" class="social-btn" data-label="Instagram">
+    <i class="fab fa-instagram"></i>
+    <span class="social-label">Instagram</span>
+  </a>
 
-    <a href="mailto:Crafter03yt@gmail.com" class="social-btn">
-      <i class="fas fa-envelope"></i>
-    </a>
-  </div>
+  <a href="https://www.tiktok.com/@r3g_is_here?_r=1&_t=ZS-93smXPazU4i" target="_blank" rel="noopener noreferrer" class="social-btn" data-label="TikTok">
+    <i class="fab fa-tiktok"></i>
+    <span class="social-label">TikTok</span>
+  </a>
+
+  <a href="mailto:Crafter03yt@gmail.com" class="social-btn" data-label="Email">
+    <i class="fas fa-envelope"></i>
+    <span class="social-label">Email</span>
+  </a>
+</div>
+
 
 </header>
 
@@ -54,18 +63,33 @@
   <p>I'm From 12 HUMSS Athena.</p>
   <p>From the school of Minuyan National High School.</p>
   <p>Hobbies: Learning Coding, Gaming, Music, and Arts</p>
+  <p>I dream of becoming a frontend developer, web designer, game developer, 3D modeler, or software developer.</p>
+  <ul>
+        <li>I love puzzles and challenges.</li>
+        <li>I enjoy playing mobile games.</li>
+        <li>I like creating small apps and websites.</li>
+        <li>I love playing CODM, ML, PUBG Mobile, Minecraft, and Roblox.</li>
+        <li>I have a childish personality and it's difficult for me to hold my laugh.</li>
+      </ul>
 </section>
 
 <section id="facts" class="glass-box">
-  <h2>Fun Facts</h2>
-  <ul>
-    <li>I love puzzles and challenges.</li>
-    <li>I enjoy playing mobile games.</li>
-    <li>I like creating small apps and websites.</li>
-    <li>I love playing CODM, ML, PUBG Mobile, Minecraft, and Roblox.</li>
-    <li>I have a childish personality and it's difficult for me to hold my laugh.</li>
-  </ul>
+  <h2>My trio</h2>
+  <div class="facts-container">
+    <!-- Left side: Text -->
+    <div class="facts-text">
+      <p>Come along with me~</p>
+    </div>
+
+    <!-- Right side: Stacked Photos -->
+    <div class="facts-photos">
+      <img src="photo3.jpg" alt="Photo 3" class="stacked-photo photo-3">
+      <img src="photo4.jpg" alt="Photo 4" class="stacked-photo photo-4">
+      <img src="photo5.jpg" alt="Photo 5" class="stacked-photo photo-5">
+    </div>
+  </div>
 </section>
+
 
 <section id="lobby" class="glass-box">
   <h2>Game Lobby</h2>
@@ -99,7 +123,9 @@
   <button onclick="scrollToSection('lobby')">🎮</button>
 </nav>
 
-<footer>Property of Ytac Ger Merwin E (2026)</footer>
+<footer>
+  <p>&copy; 2026 Ger Merwin E. Ytac. All Rights Reserved.</p>
+</footer>
 
 <script src="main.js"></script>
 </body>
