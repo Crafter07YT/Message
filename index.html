@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio & Games</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<video autoplay muted loop id="Bg">
+  <source src="Bg.mp4" type="video/mp4">
+</video>
+
+<div id="emojiContainer"></div>
+
+<header id="header" class="glass-box profile-header">
+  <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
+  <div class="intro-text">
+    <h1>Hello, I'm Get Merwin E Ytac</h1>
+    <p>Welcome! If you're reading this then it means that you're either a trusted friend or my teacher.</p>
+  </div>
+</header>
+
+<section id="home" class="glass-box">
+  <h2>Home</h2>
+  <p>This website is made for my final project and is currently on a beta phase. Please contact me if you encounter any bugs or glitches.</p>
+</section>
+
+<section id="about" class="glass-box">
+  <h2>About Me</h2>
+  <p>I'm From 12 HUMSS Athena.</p>
+  <p>From the school of Minuyan National High School.</p>
+  <p>Hobbies: Learning Coding, Gaming, Music, and Arts</p>
+</section>
+
+<section id="facts" class="glass-box">
+  <h2>Fun Facts</h2>
+  <ul>
+    <li>I love puzzles and challenges.</li>
+    <li>I enjoy playing mobile games.</li>
+    <li>I like creating small apps and websites.</li>
+    <li>I love playing CODM, ML, PUBG Mobile, Minecraft, and Roblox.</li>
+    <li>I have a childish personality and it's difficult for me to hold my laugh.</li>
+  </ul>
+</section>
+
+<section id="lobby" class="glass-box">
+  <h2>Game Lobby</h2>
+  <div class="difficulty-container">
+    <label>Difficulty:
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="sudokuTimerDisplay" style="text-align:center; margin-top:10px;">
+    Time: <span id="currentTime">0</span>s | Best: <span id="bestTime">--</span>s
+  </div>
+
+  <div class="game-buttons">
+    <button onclick="startSudoku()">🧩 Sudoku</button>
+    <button onclick="startTicTacToe()">✖️⭕ Tic Tac Toe</button>
+  </div>
+
+  <div id="gameArea"></div>
+  <div id="sudokuNumbers" class="sudoku-numbers"></div>
+</section>
+
+<nav id="navbar">
+  <button onclick="scrollToSection('header')">👤</button>
+  <button onclick="scrollToSection('home')">🏠</button>
+  <button onclick="scrollToSection('about')">📄</button>
+  <button onclick="scrollToSection('lobby')">🎮</button>
+</nav>
+
+<footer>Property of Ytac Ger Merwin E (2026)</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
