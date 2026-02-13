@@ -309,3 +309,47 @@ body {
   transform: scale(1.05);
   box-shadow: 0 0 12px rgba(255,255,255,0.5);
 }
+
+.profile-header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.social-icons {
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+
+.social-btn {
+  width:45px;
+  height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  border:2px solid rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.05);
+  color:#c0c0c0;
+  font-size:20px;
+  text-decoration:none;
+  transition: all 0.3s ease;
+  box-shadow:0 0 8px rgba(255,255,255,0.2);
+}
+
+.social-btn:hover {
+  transform:scale(1.15);
+  box-shadow:0 0 15px rgba(255,255,255,0.5);
+  color:white;
+}
+/* Game Lobby - Solid Gray Instead of Glass */
+#lobby {
+  background: #1a1a1a; /* pure dark gray */
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
