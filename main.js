@@ -322,22 +322,299 @@ function createEmoji(){
 }
 setInterval(createEmoji,300);
 
-// -------------------- Ripple Effect (Multiple Water Waves) --------------------
+// ===== ENHANCED WATER RIPPLE EFFECT =====
+// Replace your existing ripple code in main.js with this:
+
 document.addEventListener("click", function(e){
-  for(let i=0;i<3;i++){
+  // Don't create ripples if clicking inside game lobby or navbar
+  if(e.target.closest('#lobby') || 
+     e.target.closest('#gameArea') || 
+     e.target.closest('.sudoku-numbers') || 
+     e.target.closest('#navbar')) {
+    return;
+  }
+  
+  createWaterRipple(e.pageX, e.pageY);
+});
+
+// Also add touch support for mobile
+document.addEventListener("touchstart", function(e){
+  // Don't create ripples if touching inside game lobby or navbar
+  if(e.target.closest('#lobby') || 
+     e.target.closest('#gameArea') || 
+     e.target.closest('.sudoku-numbers') || 
+     e.target.closest('#navbar')) {
+    return;
+  }
+  
+  for(let i = 0; i < e.touches.length; i++){
+    createWaterRipple(e.touches[i].pageX, e.touches[i].pageY);
+  }
+});
+
+function createWaterRipple(x, y) {
+  // Create 2 ripple waves (reduced from 3 for subtlety)
+  for(let i = 0; i < 2; i++){
     const ripple = document.createElement("span");
-    ripple.className="ripple";
-    ripple.style.left = e.clientX + "px";
-    ripple.style.top = e.clientY + "px";
-    ripple.style.animationDelay = (i*0.15) + "s";
-    ripple.style.width = "0px";
-    ripple.style.height = "0px";
-    ripple.style.borderRadius="50%";
-    ripple.style.position="absolute";
-    ripple.style.background = "rgba(255,255,255,0.3)";
-    ripple.style.pointerEvents="none";
-    ripple.style.animation = "waterRipple 0.8s ease-out forwards";
+    ripple.className = "water-ripple";
+    
+    // Position at click/touch point (using pageX/pageY for scrolling support)
+    ripple.style.left = x + "px";
+    ripple.style.top = y + "px";
+    
+    // Delay each wave slightly for cascading effect
+    ripple.style.animationDelay = (i * 0.12) + "s";
+    
+    // Slight size variation
+    const sizeVariation = 1 + (Math.random() * 0.1 - 0.05);
+    ripple.style.setProperty('--size-multiplier', sizeVariation);
+    
     document.body.appendChild(ripple);
-    setTimeout(()=>ripple.remove(),1200);
+    
+    // Remove after animation completes
+    setTimeout(() => ripple.remove(), 1200);
+  }
+  
+  // Rarely add small splash particles (20% chance, was 50%)
+  if(Math.random() > 0.8) {
+    createSplashParticles(x, y);
+  }
+}
+
+function createSplashParticles(x, y) {
+  // Reduced to 3 particles (was 5)
+  for(let i = 0; i < 3; i++){
+    const particle = document.createElement("span");
+    particle.className = "water-particle";
+    
+    const angle = (Math.PI * 2 * i) / 3;
+    const distance = 20 + Math.random() * 15; // Smaller distance
+    const endX = x + Math.cos(angle) * distance;
+    const endY = y + Math.sin(angle) * distance;
+    
+    particle.style.left = x + "px";
+    particle.style.top = y + "px";
+    particle.style.setProperty('--end-x', endX + 'px');
+    particle.style.setProperty('--end-y', endY + 'px');
+    
+    document.body.appendChild(particle);
+    
+    setTimeout(() => particle.remove(), 700);
+  }
+}
+
+
+// ===== ADD THIS TO YOUR main.js FILE =====
+
+// Photo Popup Animation - Playing Card Style (High Quality)
+let isPhotoAnimating = false; // Global lock to prevent multiple clicks
+
+document.addEventListener('DOMContentLoaded', function() {
+  initPhotoAnimation();
+});
+
+function initPhotoAnimation() {
+  const container = document.querySelector('.facts-photos');
+  
+  container.addEventListener('click', function(e) {
+    const photo = e.target.closest('.stacked-photo');
+    if (!photo || isPhotoAnimating) return;
+    
+    // Lock all photos from being clicked
+    isPhotoAnimating = true;
+    
+    // Create overlay backdrop
+    const overlay = document.createElement('div');
+    overlay.classList.add('photo-overlay');
+    document.body.appendChild(overlay);
+    
+    setTimeout(() => overlay.classList.add('active'), 10);
+    
+    // Create a clone for the popup effect
+    const clone = photo.cloneNode(true);
+    clone.classList.add('photo-popup');
+    clone.classList.remove('photo-3', 'photo-4', 'photo-5', 'stacked-photo');
+    
+    // Get the photo's current position and natural dimensions
+    const rect = photo.getBoundingClientRect();
+    
+    // Calculate proper aspect ratio sizing
+    const img = new Image();
+    img.src = photo.src;
+    
+    // Set initial position with high quality settings
+    clone.style.position = 'fixed';
+    clone.style.left = rect.left + 'px';
+    clone.style.top = rect.top + 'px';
+    clone.style.width = rect.width + 'px';
+    clone.style.height = rect.height + 'px';
+    clone.style.zIndex = '10000';
+    clone.style.margin = '0';
+    clone.style.transformStyle = 'preserve-3d';
+    clone.style.backfaceVisibility = 'hidden';
+    clone.style.objectFit = 'contain';
+    clone.style.imageRendering = 'auto';
+    clone.style.WebkitFontSmoothing = 'antialiased';
+    clone.style.willChange = 'transform, width, height';
+    
+    document.body.appendChild(clone);
+    
+    // Hide original photo with subtle shrink
+    photo.style.opacity = '0';
+    photo.style.transform = 'scale(0.7)';
+    
+    // Calculate target size to fit screen while maintaining aspect ratio
+    const maxWidth = window.innerWidth * 0.9;
+    const maxHeight = window.innerHeight * 0.9;
+    
+    img.onload = function() {
+      const aspectRatio = img.naturalWidth / img.naturalHeight;
+      let targetWidth, targetHeight;
+      
+      if (aspectRatio > 1) {
+        // Landscape
+        targetWidth = Math.min(maxWidth, img.naturalWidth * 0.95);
+        targetHeight = targetWidth / aspectRatio;
+        
+        if (targetHeight > maxHeight) {
+          targetHeight = maxHeight;
+          targetWidth = targetHeight * aspectRatio;
+        }
+      } else {
+        // Portrait
+        targetHeight = Math.min(maxHeight, img.naturalHeight * 0.95);
+        targetWidth = targetHeight * aspectRatio;
+        
+        if (targetWidth > maxWidth) {
+          targetWidth = maxWidth;
+          targetHeight = targetWidth / aspectRatio;
+        }
+      }
+      
+      // Playing card animation: flip and fly to center (SMOOTH)
+      setTimeout(() => {
+        clone.style.left = '50%';
+        clone.style.top = '50%';
+        clone.style.width = targetWidth + 'px';
+        clone.style.height = targetHeight + 'px';
+        clone.style.transform = 'translate(-50%, -50%) rotateY(360deg)';
+        clone.style.transition = 'all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)'; // Smoother easing
+        clone.style.filter = 'drop-shadow(0 30px 80px rgba(255, 255, 255, 0.6))'; // Better quality glow
+      }, 50);
+    };
+    
+    // Fallback if image doesn't load
+    setTimeout(() => {
+      if (!clone.style.transition) {
+        const fallbackWidth = Math.min(window.innerWidth * 0.85, 600);
+        const fallbackHeight = Math.min(window.innerHeight * 0.85, 800);
+        
+        clone.style.left = '50%';
+        clone.style.top = '50%';
+        clone.style.width = fallbackWidth + 'px';
+        clone.style.height = fallbackHeight + 'px';
+        clone.style.transform = 'translate(-50%, -50%) rotateY(360deg)';
+        clone.style.transition = 'all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        clone.style.filter = 'drop-shadow(0 30px 80px rgba(255, 255, 255, 0.6))';
+      }
+    }, 100);
+    
+    // After 2 seconds, flip back and fade out
+    setTimeout(() => {
+      overlay.classList.remove('active');
+      clone.style.transform = 'translate(-50%, -50%) rotateY(720deg) scale(0.3)';
+      clone.style.opacity = '0';
+      clone.style.filter = 'drop-shadow(0 10px 20px rgba(255, 255, 255, 0.3))';
+      clone.style.transition = 'all 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55)';
+      
+      // After fade, remove clone and reorder original photos
+      setTimeout(() => {
+        clone.remove();
+        overlay.remove();
+        reorderPhotos(photo);
+      }, 700);
+    }, 2000);
+  });
+}
+
+function reorderPhotos(clickedPhoto) {
+  const container = document.querySelector('.facts-photos');
+  const allPhotos = Array.from(container.querySelectorAll('.stacked-photo'));
+  
+  // Find the index of clicked photo
+  const clickedIndex = allPhotos.indexOf(clickedPhoto);
+  
+  // Remove clicked photo from array and add to beginning (bottom of z-index stack)
+  allPhotos.splice(clickedIndex, 1);
+  allPhotos.unshift(clickedPhoto); // Add to beginning = bottom of stack
+  
+  // Clear all position classes
+  allPhotos.forEach(p => {
+    p.classList.remove('photo-3', 'photo-4', 'photo-5');
+    p.style.opacity = '1';
+    p.style.transform = '';
+  });
+  
+  // Reassign classes based on new order
+  const positions = ['photo-3', 'photo-4', 'photo-5'];
+  allPhotos.forEach((photo, i) => {
+    if (i < positions.length) {
+      photo.classList.add(positions[i]);
+    }
+  });
+  
+  allPhotos.forEach(photo => container.appendChild(photo));
+  
+  setTimeout(() => {
+    isPhotoAnimating = false;
+  }, 100);
+}
+// ===== TYPING ANIMATION - ADD TO YOUR main.js ===== 
+
+// Typing animation configuration
+const typingElement = document.querySelector('.typing-text');
+const textToType = "Ger Merwin E. Ytac";
+let charIndex = 0;
+let isDeleting = false;
+let typingSpeed = 100; // Milliseconds per character when typing
+let deletingSpeed = 60; // Milliseconds per character when deleting
+let pauseBeforeDelete = 1500; // Pause after finishing typing (2 seconds)
+let pauseBeforeType = 500; // Pause after finishing deleting (0.5 seconds)
+
+function typeWriter() {
+  if (!typingElement) return;
+  
+  const currentText = textToType.substring(0, charIndex);
+  typingElement.textContent = currentText;
+  
+  if (!isDeleting) {
+    // TYPING MODE
+    if (charIndex < textToType.length) {
+      charIndex++;
+      setTimeout(typeWriter, typingSpeed);
+    } else {
+      // Finished typing, wait before deleting
+      setTimeout(() => {
+        isDeleting = true;
+        typeWriter();
+      }, pauseBeforeDelete);
+    }
+  } else {
+    // DELETING MODE
+    if (charIndex > 0) {
+      charIndex--;
+      setTimeout(typeWriter, deletingSpeed);
+    } else {
+      // Finished deleting, wait before typing again
+      isDeleting = false;
+      setTimeout(typeWriter, pauseBeforeType);
+    }
+  }
+}
+
+// Start the typing animation when page loads
+document.addEventListener('DOMContentLoaded', function() {
+  if (typingElement) {
+    setTimeout(typeWriter, 500); // Small delay before starting
   }
 });
