@@ -619,7 +619,7 @@ const playlist = [
   {
     name: "La maritza",
     artist: "Sylvie Vartan",
-    src: "music/song3.mp3"
+    src: "song3.mp3"
   }
 ];
 
