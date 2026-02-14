@@ -609,17 +609,17 @@ const playlist = [
   {
     name: "Golden Hour Instrumental",
     artist: "JVKE",
-    src: "song1.mp3" // Replace with your actual music file path
+    src: "Song1.mp3" // Replace with your actual music file path
   },
   {
     name: "Virus (intense)",
     artist: "Beethoven",
-    src: "song2.mp3"
+    src: "Song2.mp3"
   },
   {
     name: "La maritza",
     artist: "Sylvie Vartan",
-    src: "song3.mp3"
+    src: "Song3.mp3"
   }
 ];
 
