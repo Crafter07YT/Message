@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<button class="theme-toggle" aria-label="Toggle dark mode">
+  <i class="fas fa-moon moon-icon"></i>
+  <i class="fas fa-sun sun-icon"></i>
+</button>
+
+<header id="header" class="glass-box profile-header">
+  <div class="profile-container">
+    <div class="neon-mask"></div>
+    <img id="profile-pic"
+      src="profile.jpg"
+      data-light="profile.jpg"
+      data-dark="profile_dark.jpg"
+      alt="Profile Picture"
+      class="profile-pic">
+  </div>
+
+  <div class="intro-text">
+    <h1>Hello, I'm <span class="typing-text"></span><span class="typing-cursor">|</span></h1>
+    <p>Welcome! If you're reading this then it means that you're either a trusted friend or my teacher.</p>
+  </div>
+
+  <div class="music-player">
+    <div class="track-info">
+      <div class="track-name" id="trackName">Song Title 1</div>
+      <div class="track-artist" id="trackArtist">Artist Name 1</div>
+    </div>
+    <div class="player-controls">
+      <button class="control-btn" id="prevBtn" title="Previous"><i class="fas fa-backward"></i></button>
+      <button class="control-btn play-btn" id="playBtn" title="Play/Pause"><i class="fas fa-play" id="playIcon"></i></button>
+      <button class="control-btn" id="nextBtn" title="Next"><i class="fas fa-forward"></i></button>
+      <button class="control-btn" id="muteBtn" title="Mute"><i class="fas fa-volume-up" id="volumeIcon"></i></button>
+    </div>
+    <div class="volume-control">
+      <input type="range" id="volumeSlider" min="0" max="100" value="70" class="volume-slider">
+    </div>
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div class="time-display">
+      <span id="currentTime">0:00</span>
+      <span id="duration">0:00</span>
+    </div>
+  </div>
+
+  <audio id="audioPlayer"></audio>
+</header>
+
+<section id="home" class="glass-box">
+  <h2>Home</h2>
+  <p>This website is made for my final project and is currently in a beta phase. Please contact me if you encounter any bugs or glitches.</p>
+</section>
+
+<section id="about" class="glass-box">
+  <h2>About Me</h2>
+  <p>I'm from 12 HUMSS Athena.</p>
+  <p>From the school of Minuyan National High School.</p>
+  <p>Hobbies: Learning Coding, Gaming, Music, and Arts</p>
+  <p>I dream of becoming a frontend developer, web designer, game developer, 3D modeler, or software developer.</p>
+  <ul>
+    <li>I love puzzles and challenges.</li>
+    <li>I enjoy playing mobile games.</li>
+    <li>I like creating small apps and websites.</li>
+    <li>I love playing CODM, ML, PUBG Mobile, Minecraft, and Roblox.</li>
+    <li>I have a childish personality and it's difficult for me to hold my laugh.</li>
+  </ul>
+</section>
+
+<section id="facts" class="glass-box">
+  <h2>Da Papers</h2>
+
+  <div class="document-stack">
+    <div class="document-page" data-page="1">
+      <div class="page-number">Page 1</div>
+      <div class="page-content">
+        <p>Pag binato ka ng bato,umiwas ka.</p>
+        <p>Imagine invisible ka tapos nabangga ka ng e-bike na full charge</p>
+        <p>Pag ba yung butterflies na-inlove makakaramdam sila ng tao sa tummy nila?</p>
+      </div>
+    </div>
+    <div class="document-page" data-page="2">
+      <div class="page-number">Page 2</div>
+      <div class="page-content">
+        <p>Anong pak ang tumatalon? Pautang nga pre 200 lang </p>
+        <p>Did you know if you climbed a coconut tree, there's 100% chance that you won't see any apples up there? it's because apples grows on apple tree.</p>
+        <p>Lunes palang ubos na baon ko.</p>
+      </div>
+    </div>
+    <div class="document-page" data-page="3">
+      <div class="page-number">Page 3</div>
+      <div class="page-content">
+        <p>I like turtles.</p>
+        <p>What if bagsakan ka ng kayamanan? Kaso galing langit.</p>
+        <p>Payag ka yayaman ka, tapos mababangga ka ulet ng e-bike.</p>
+      </div>
+    </div>
+    <div class="document-page" data-page="4">
+      <div class="page-number">Page 4</div>
+      <div class="page-content">
+        <p>I'm on a losing streak in MLBB right now, it's rough.</p>
+        <p>Pautang 200 ulet :></p>
+        <p>I'm running out of things to write, please help 😭</p>
+        <p>Pag pumikit ka, mandilin😮</p>
+      </div>
+    </div>
+    <div class="document-page" data-page="5">
+      <div class="page-number">Page 5</div>
+      <div class="page-content">
+        <p>Imagine cowboy ka, kaso seahorse sasakyan mo?</p>
+        <p>Bat kaya sobrang lamig? May five hundred ka?</p>
+        <p>nakakapag tampo maligo</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="document-controls">
+    <button id="prevDocBtn" class="nav-btn" disabled>
+      <i class="fas fa-chevron-left"></i> Previous
+    </button>
+    <div class="page-indicator">
+      Page <span id="currentDocPage">1</span> of <span id="totalDocPages">5</span>
+    </div>
+    <button id="nextDocBtn" class="nav-btn">
+      Next <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+</section>
+
+<section id="games" class="glass-box">
+  <h2>Games</h2>
+  <div class="parent">
+    <div class="div1 game-card" onclick="window.location.href='sudoku.html'">
+      <div class="game-icon">🧩</div>
+      <div class="game-title">Sudoku</div>
+    </div>
+    <div class="div2 game-card" onclick="window.location.href='tictactoe.html'">
+      <div class="game-icon">✖️⭕</div>
+      <div class="game-title">Tic Tac Toe</div>
+    </div>
+
+  </div>
+</section>
+
+<nav id="navbar">
+  <button onclick="scrollToSection('header')" title="Profile"><i class="fas fa-user"></i></button>
+  <button onclick="scrollToSection('home')" title="Home"><i class="fas fa-house"></i></button>
+  <button onclick="scrollToSection('about')" title="About"><i class="fas fa-address-card"></i></button>
+  <button onclick="scrollToSection('facts')" title="Da Papers"><i class="fas fa-file-lines"></i></button>
+  <button onclick="scrollToSection('games')" title="Games"><i class="fas fa-gamepad"></i></button>
+</nav>
+
+<footer>
+  <p>&copy; 2026 Ger Merwin E. Ytac. All Rights Reserved.</p>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
